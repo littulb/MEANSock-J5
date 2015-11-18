@@ -15,8 +15,8 @@ var mongoose = require('mongoose');
 var johnnyFive = require('johnny-five');
 var Particle = require("particle-io");
 var board = new Particle({
-  token: "3e5cc17694e07c34694f128e5da31df0838f8c36",
-  deviceId: "35003b000447343337373738"
+  token: "",
+  deviceId: ""
 });
 
 console.log(board);
