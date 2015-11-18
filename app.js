@@ -12,14 +12,22 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mongoose = require('mongoose');
-// mongoose.connect('');
+var johnnyFive = require('johnny-five');
+var Particle = require("particle-io");
+var board = new Particle({
+  token: "3e5cc17694e07c34694f128e5da31df0838f8c36",
+  deviceId: "35003b000447343337373738"
+});
+
+console.log(board);
+
 app.locals.delimiters = '[[ ]]'; 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hjs');
 http.listen(3000, function () {
   console.log("http port working");
 });
-
+// mongoose.connect('');
 var Comm = mongoose.model( 'message' , new mongoose.Schema({}));
 
 // uncomment after placing your favicon in /public
@@ -35,6 +43,7 @@ app.use('/users', users);
 
 io.on('connection', function (socket) {
   console.log("socket io is working. My Id is: "+socket.id);
+  socket.emit('johnny', johnnyFive);
   // Comm.find({_id : myId }).remove( function (err,doc) {
   //     // res.status(200).end();
   //     socket.emit('Delete Message', doc);
